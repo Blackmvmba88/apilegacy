@@ -1,0 +1,56 @@
+name: Legal Foundation Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Verify required foundation files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            "README.md"
+            "LICENSE"
+            "legal/API_TERMS.md"
+            "legal/PRIVACY_POLICY.md"
+            "legal/ACCEPTABLE_USE_POLICY.md"
+            "legal/DATA_RETENTION_POLICY.md"
+            "legal/THIRD_PARTY_NOTICES.md"
+            "security/SECURITY.md"
+            "manifests/legal-manifest.example.yaml"
+            "templates/project.template.json"
+            "tools/new_project.py"
+          )
+
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
+          done
+
+      - name: Validate JSON template
+        run: python3 -m json.tool templates/project.template.json >/dev/null
+
+      - name: Validate generator syntax
+        run: python3 -m py_compile tools/new_project.py
+
+      - name: Smoke-test draft generation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/blackmamba-legal-smoke
+          python3 tools/new_project.py templates/project.template.json --out /tmp/blackmamba-legal-smoke --allow-placeholders
+          test -s /tmp/blackmamba-legal-smoke/LEGAL_MANIFEST.json
+          python3 -m json.tool /tmp/blackmamba-legal-smoke/LEGAL_MANIFEST.json >/dev/null
+          test -s /tmp/blackmamba-legal-smoke/legal/API_TERMS.md
+          test -s /tmp/blackmamba-legal-smoke/security/SECURITY.md
