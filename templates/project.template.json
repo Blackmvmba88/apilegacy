@@ -1,0 +1,36 @@
+{
+  "schema": "blackmamba.project/v1",
+  "project_name": "example-project",
+  "product_name": "Example BlackMamba Product",
+  "repository_url": "https://github.com/OWNER/REPO",
+  "brand_name": "BlackMamba Software",
+  "legal_owner": "REPLACE_ME",
+  "effective_date": "YYYY-MM-DD",
+  "jurisdiction_primary": "Mexico",
+  "license_mode": "proprietary",
+  "api": {
+    "enabled": true,
+    "authentication": "REPLACE_ME",
+    "public_api": false
+  },
+  "privacy": {
+    "collects_personal_data": false,
+    "retention_default": "session-only",
+    "privacy_contact": "REPLACE_ME"
+  },
+  "security": {
+    "security_contact": "REPLACE_ME",
+    "tls_required": true,
+    "secrets_in_repository": false
+  },
+  "third_party": {
+    "services": [],
+    "marks": []
+  },
+  "integrity": {
+    "unauthorized_automation": false,
+    "security_bypass": false,
+    "anti_cheat_bypass": false,
+    "human_input_bridge": false
+  }
+}
