@@ -1,0 +1,58 @@
+schema: blackmamba.legal-manifest/v1
+
+project:
+  name: "example-project"
+  product_name: "Example BlackMamba Product"
+  repository: "https://github.com/OWNER/REPO"
+  version: "0.1.0"
+  release_date: "YYYY-MM-DD"
+
+ownership:
+  legal_owner: "REPLACE_ME"
+  brand: "BlackMamba Software"
+  copyright_year: 2026
+  license: "proprietary"
+
+release_identity:
+  git_commit: "REPLACE_ME"
+  source_sha256: "REPLACE_ME"
+  artifact_sha256: "REPLACE_ME"
+  signed: false
+
+api:
+  enabled: true
+  authentication: "REPLACE_ME"
+  rate_limits_documented: false
+
+security:
+  tls_required: true
+  secrets_in_repository: false
+  least_privilege_required: true
+  vulnerability_reporting: true
+
+privacy:
+  collects_personal_data: false
+  data_inventory_complete: false
+  retention_policy: "session-only"
+  privacy_notice_required: false
+
+third_party:
+  services: []
+  dependencies_reviewed: false
+  licenses_reviewed: false
+  trademarks_reviewed: false
+
+integrity:
+  unauthorized_automation: "prohibited"
+  security_bypass: "prohibited"
+  anti_cheat_bypass: "prohibited"
+  human_input_bridge_rule: "one-human-action-to-one-control-action"
+
+compliance:
+  jurisdiction_primary: "Mexico"
+  legal_review_status: "template-only"
+  production_approved: false
+
+notes:
+  - "Replace every REPLACE_ME field before release certification."
+  - "This manifest records the declared state of a release; it does not itself create regulatory approval."
